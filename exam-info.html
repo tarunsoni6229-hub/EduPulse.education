@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Information | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .exam-status {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .exam-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .exam-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="study-material.html" class="nav-item"><i class="fas fa-book-open"></i><span>Study
+                        Material</span></a>
+                <a href="attendance.html" class="nav-item"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="placement.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Placement</span></a>
+                <a href="daily-report.html" class="nav-item"><i class="fas fa-file-alt"></i><span>Daily
+                        Reports</span></a>
+                <a href="leave-holiday.html" class="nav-item"><i
+                        class="fas fa-plane-departure"></i><span>Leave/Holidays</span></a>
+                <a href="exam-info.html" class="nav-item active"><i class="fas fa-edit"></i><span>Exam Info</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 class="section-title">Examination Portal</h1>
+                    <p style="color: var(--text-muted)">Check your schedules, download hall tickets and view results.
+                    </p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                    </div>
+                </div>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem;">
+                <!-- Exam Schedule -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 2rem;">Mid-Term Schedule</h3>
+                    <div style="overflow-x: auto;">
+                        <table class="exam-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>SUBJECT</th>
+                                    <th>TIME</th>
+                                    <th>VENUE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oct 24, 2024</td>
+                                    <td><strong>Advanced Mathematics</strong></td>
+                                    <td>10:00 AM - 01:00 PM</td>
+                                    <td>Hall A - 302</td>
+                                    <td><span class="exam-status status-upcoming">Upcoming</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 28, 2024</td>
+                                    <td><strong>Database Management Systems</strong></td>
+                                    <td>02:00 PM - 05:00 PM</td>
+                                    <td>Hall B - 105</td>
+                                    <td><span class="exam-status status-upcoming">Upcoming</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Nov 02, 2024</td>
+                                    <td><strong>Web Architecture</strong></td>
+                                    <td>10:00 AM - 01:00 PM</td>
+                                    <td>Hall A - 201</td>
+                                    <td><span class="exam-status status-upcoming">Upcoming</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 10, 2024</td>
+                                    <td><strong>Business Communications</strong></td>
+                                    <td>10:00 AM - 01:00 PM</td>
+                                    <td>Hall C - 404</td>
+                                    <td><span class="exam-status status-completed">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right Panels -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <h4 style="margin-bottom: 1.5rem;">Quick Downloads</h4>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <button class="btn-primary" style="justify-content: space-between; font-size: 0.85rem;">
+                                Hall Ticket <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn-primary"
+                                style="justify-content: space-between; font-size: 0.85rem; background: var(--glass); color: white;">
+                                Syllabus PDF <i class="fas fa-file-pdf"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <h4 style="margin-bottom: 1.5rem;">Previous Semester Result</h4>
+                        <div style="text-align: center;">
+                            <div
+                                style="font-size: 2.5rem; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                                9.2 CGPA</div>
+                            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 10px;">Semester IV -
+                                Distinction</p>
+                        </div>
+                        <button class="btn-primary"
+                            style="width: 100%; margin-top: 1.5rem; font-size: 0.9rem; justify-content: center;">View
+                            Full Marksheet</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

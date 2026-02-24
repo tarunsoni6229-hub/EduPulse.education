@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave & Holidays | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .holiday-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .holiday-item {
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .leave-status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .date-badge {
+            padding: 8px 15px;
+            background: var(--glass-heavy);
+            border-radius: 10px;
+            text-align: center;
+            min-width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="study-material.html" class="nav-item"><i class="fas fa-book-open"></i><span>Study
+                        Material</span></a>
+                <a href="attendance.html" class="nav-item"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="placement.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Placement</span></a>
+                <a href="daily-report.html" class="nav-item"><i class="fas fa-file-alt"></i><span>Daily
+                        Reports</span></a>
+                <a href="leave-holiday.html" class="nav-item active"><i
+                        class="fas fa-plane-departure"></i><span>Leave/Holidays</span></a>
+                <a href="exam-info.html" class="nav-item"><i class="fas fa-edit"></i><span>Exam Info</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 class="section-title">Leave & Holidays</h1>
+                    <p style="color: var(--text-muted)">Plan your breaks and track your leave applications.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="leave-status-grid">
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Total Leave Credits</span>
+                    <span class="stat-value">15</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Used Leaves</span>
+                    <span class="stat-value" style="color: var(--secondary);">4</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Pending Requests</span>
+                    <span class="stat-value" style="color: var(--accent);">1</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Remaining</span>
+                    <span class="stat-value" style="color: #4ade80;">11</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem;">
+                <!-- Apply Leave -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 2rem;">Apply for Leave</h3>
+                    <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">From
+                                    Date</label>
+                                <input type="date"
+                                    style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: white;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">To
+                                    Date</label>
+                                <input type="date"
+                                    style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: white;">
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">Leave
+                                Type</label>
+                            <select
+                                style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: white;">
+                                <option>Sick Leave</option>
+                                <option>Personal Leave</option>
+                                <option>Emergency Leave</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">Reason</label>
+                            <textarea
+                                style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: white; min-height: 100px;"></textarea>
+                        </div>
+                        <button class="btn-primary" type="submit">Submit Application</button>
+                    </form>
+                </div>
+
+                <!-- Academic Holidays -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 2rem;">Upcoming Holidays</h3>
+                    <div class="holiday-list">
+                        <div class="glass-card holiday-item">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div class="date-badge">
+                                    <div style="font-size: 1.2rem; font-weight: 800;">25</div>
+                                    <div style="font-size: 0.7rem; text-transform: uppercase;">Dec</div>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.95rem;">Christmas Day</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">National Holiday</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-snowflake" style="color: var(--accent);"></i>
+                        </div>
+
+                        <div class="glass-card holiday-item">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div class="date-badge">
+                                    <div style="font-size: 1.2rem; font-weight: 800;">01</div>
+                                    <div style="font-size: 0.7rem; text-transform: uppercase;">Jan</div>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.95rem;">New Year's Day</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">Academic Holiday</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-fireworks" style="color: var(--secondary);"></i>
+                        </div>
+
+                        <div class="glass-card holiday-item">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div class="date-badge">
+                                    <div style="font-size: 1.2rem; font-weight: 800;">26</div>
+                                    <div style="font-size: 0.7rem; text-transform: uppercase;">Jan</div>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.95rem;">Republic Day</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">Public Holiday</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-flag" style="color: #4ade80;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

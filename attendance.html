@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .attendance-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            background: var(--glass);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .calendar-day:hover {
+            background: var(--glass-heavy);
+        }
+
+        .day-label {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding-bottom: 10px;
+        }
+
+        .present {
+            border-bottom: 3px solid #4ade80;
+            color: #4ade80;
+        }
+
+        .absent {
+            border-bottom: 3px solid #f87171;
+            color: #f87171;
+        }
+
+        .holiday {
+            border-bottom: 3px solid #fbbf24;
+            color: #fbbf24;
+        }
+
+        .status-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="study-material.html" class="nav-item"><i class="fas fa-book-open"></i><span>Study
+                        Material</span></a>
+                <a href="attendance.html" class="nav-item active"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="placement.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Placement</span></a>
+                <a href="campus-fee.html" class="nav-item"><i class="fas fa-wallet"></i><span>Campus Fee</span></a>
+                <a href="daily-report.html" class="nav-item"><i class="fas fa-file-alt"></i><span>Daily
+                        Reports</span></a>
+                <a href="leave-holiday.html" class="nav-item"><i
+                        class="fas fa-plane-departure"></i><span>Leave/Holidays</span></a>
+                <a href="exam-info.html" class="nav-item"><i class="fas fa-edit"></i><span>Exam Info</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 class="section-title">Attendance Tracking</h1>
+                    <p style="color: var(--text-muted)">Monitor your monthly উপস্থিতি and overall academic
+                        participation.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="attendance-stats">
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Total Days</span>
+                    <span class="stat-value">180</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Days Present</span>
+                    <span class="stat-value" style="color: #4ade80;">162</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <span class="stat-label">Days Absent</span>
+                    <span class="stat-value" style="color: #f87171;">12</span>
+                </div>
+                <div class="glass-card stat-card" style="border-bottom: 4px solid var(--primary);">
+                    <span class="stat-label">Percentage</span>
+                    <span class="stat-value">90%</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem;">
+                <!-- Calendar View -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.25rem;">October 2024</h3>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="nav-item" style="padding: 5px 10px;"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <button class="nav-item" style="padding: 5px 10px;"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <div class="day-label">SUN</div>
+                        <div class="day-label">MON</div>
+                        <div class="day-label">TUE</div>
+                        <div class="day-label">WED</div>
+                        <div class="day-label">THU</div>
+                        <div class="day-label">FRI</div>
+                        <div class="day-label">SAT</div>
+
+                        <!-- Calendar Days (Mocking some data) -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day present">1</div>
+                        <div class="calendar-day present">2</div>
+                        <div class="calendar-day absent">3</div>
+                        <div class="calendar-day present">4</div>
+                        <div class="calendar-day holiday">5</div>
+                        <div class="calendar-day holiday">6</div>
+                        <div class="calendar-day present">7</div>
+                        <div class="calendar-day present">8</div>
+                        <div class="calendar-day present">9</div>
+                        <div class="calendar-day absent">10</div>
+                        <div class="calendar-day present">11</div>
+                        <div class="calendar-day holiday">12</div>
+                        <div class="calendar-day holiday">13</div>
+                        <div class="calendar-day present">14</div>
+                        <div class="calendar-day present">15</div>
+                        <div class="calendar-day present">16</div>
+                        <div class="calendar-day present">17</div>
+                        <div class="calendar-day present">18</div>
+                        <div class="calendar-day holiday">19</div>
+                        <div class="calendar-day holiday">20</div>
+                    </div>
+
+                    <div class="status-legend">
+                        <div class="legend-item">
+                            <div class="dot" style="background: #4ade80;"></div> Present
+                        </div>
+                        <div class="legend-item">
+                            <div class="dot" style="background: #f87171;"></div> Absent
+                        </div>
+                        <div class="legend-item">
+                            <div class="dot" style="background: #fbbf24;"></div> Holiday
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart View -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 2rem;">Subject-wise Attendance</h3>
+                    <canvas id="attendanceChart" height="300"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Present', 'Absent', 'Late'],
+                datasets: [{
+                    data: [162, 12, 6],
+                    backgroundColor: ['#4ade80', '#f87171', '#fbbf24',],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

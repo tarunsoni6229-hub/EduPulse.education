@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --admin-primary: #f97316;
+            /* Orange theme for Admin */
+            --admin-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+        }
+
+        .admin-sidebar {
+            background: rgba(15, 23, 42, 0.95);
+            border-right: 1px solid rgba(249, 115, 22, 0.2);
+        }
+
+        .admin-nav-item:hover,
+        .admin-nav-item.active {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--admin-primary);
+            border-left: 3px solid var(--admin-primary);
+        }
+
+        .btn-admin {
+            background: var(--admin-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Admin Sidebar -->
+        <aside class="sidebar admin-sidebar">
+            <div class="logo-area">
+                <div class="logo-icon" style="background: var(--admin-gradient)"><i class="fas fa-user-shield"></i>
+                </div>
+                <span style="color: var(--admin-primary)">EduAdmin</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-item active admin-nav-item"><i class="fas fa-chart-line"></i> Overview</a>
+                <a href="#" class="nav-item admin-nav-item"><i class="fas fa-users-cog"></i> Manage Students</a>
+                <a href="#" class="nav-item admin-nav-item"><i class="fas fa-chalkboard-teacher"></i> Faculty List</a>
+                <a href="#" class="nav-item admin-nav-item"><i class="fas fa-file-invoice-dollar"></i> Fee
+                    Management</a>
+                <a href="#" class="nav-item admin-nav-item"><i class="fas fa-cog"></i> System Settings</a>
+                <a href="#" class="nav-item admin-nav-item"><i class="fas fa-shield-alt"></i> Security Logs</a>
+            </nav>
+            <div style="margin-top: auto;">
+                <a href="admin-login.html" class="nav-item admin-nav-item"><i class="fas fa-sign-out-alt"></i> Exit
+                    Portal</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 style="font-size: 1.8rem;">Administrative Suite</h1>
+                    <p style="color: var(--text-muted)">Welcome back, <span id="adminName">Loading...</span> | System
+                        Status: <span style="color: #4ade80">Secure</span></p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" style="background: var(--admin-gradient)"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600;" id="adminEmail">admin@edupulse.com</p>
+                        <p style="font-size: 0.75rem; color: var(--admin-primary);">Root Administrator</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Admin Stats -->
+            <div class="stats-grid">
+                <div class="glass-card stat-card" style="border-top: 3px solid var(--admin-primary)">
+                    <span class="stat-label">Total Enrollment</span>
+                    <span class="stat-value">2,450</span>
+                    <p style="font-size: 0.7rem; color: #4ade80">+12% from last term</p>
+                </div>
+                <div class="glass-card stat-card" style="border-top: 3px solid var(--accent)">
+                    <span class="stat-label">System Performance</span>
+                    <span class="stat-value">99.9%</span>
+                    <p style="font-size: 0.7rem; color: var(--text-muted)">Uptime (30 days)</p>
+                </div>
+                <div class="glass-card stat-card" style="border-top: 3px solid var(--secondary)">
+                    <span class="stat-label">Revenue Collected</span>
+                    <span class="stat-value">$142k</span>
+                    <p style="font-size: 0.7rem; color: #4ade80">Target: $150k</p>
+                </div>
+                <div class="glass-card stat-card" style="border-top: 3px solid #fbbf24">
+                    <span class="stat-label">Pending Tickets</span>
+                    <span class="stat-value">18</span>
+                    <p style="font-size: 0.7rem; color: #f87171">High Priority: 4</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3>Admission Trends</h3>
+                    <canvas id="admissionChart" height="200"></canvas>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3>Department Performance</h3>
+                    <canvas id="deptChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Management Tools -->
+            <div class="glass-card" style="margin-top: 2rem; padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3>Recent Administrative Actions</h3>
+                    <button class="btn-admin">View All Logs</button>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr
+                            style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem;">
+                            <th style="padding: 12px;">TIME</th>
+                            <th style="padding: 12px;">ADMINISTRATOR</th>
+                            <th style="padding: 12px;">ACTION</th>
+                            <th style="padding: 12px;">TARGET</th>
+                            <th style="padding: 12px;">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.9rem;">
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px;">10:45 AM</td>
+                            <td style="padding: 15px;">Sarah Miller</td>
+                            <td style="padding: 15px;">Fee Verification</td>
+                            <td style="padding: 15px;">Student #ID-992</td>
+                            <td style="padding: 15px;"><span style="color: #4ade80">Completed</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px;">09:12 AM</td>
+                            <td style="padding: 15px;">System Root</td>
+                            <td style="padding: 15px;">Credential Generation</td>
+                            <td style="padding: 15px;">Admin: John Doe</td>
+                            <td style="padding: 15px;"><span style="color: #4ade80">Success</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 15px;">Yesterday</td>
+                            <td style="padding: 15px;">Robert Chen</td>
+                            <td style="padding: 15px;">Exam Schedule Update</td>
+                            <td style="padding: 15px;">Mid-Term 2024</td>
+                            <td style="padding: 15px;"><span style="color: #fbbf24">Pending Approval</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Set User Info
+        const user = JSON.parse(localStorage.getItem('adminUser')) || { name: 'SuperAdmin', email: 'root@edupulse.com' };
+        document.getElementById('adminName').innerText = user.name;
+        document.getElementById('adminEmail').innerText = user.email;
+
+        // Charts
+        const admissionCtx = document.getElementById('admissionChart').getContext('2d');
+        new Chart(admissionCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'New Enrolments',
+                    data: [1200, 1500, 1800, 2100, 2450],
+                    borderColor: '#f97316',
+                    tension: 0.4
+                }]
+            },
+            options: { scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } } } }
+        });
+
+        const deptCtx = document.getElementById('deptChart').getContext('2d');
+        new Chart(deptCtx, {
+            type: 'bar',
+            data: {
+                labels: ['CS', 'Engineering', 'Nursing', 'Physics', 'Arts'],
+                datasets: [{
+                    label: 'Efficiency %',
+                    data: [95, 88, 76, 82, 90],
+                    backgroundColor: '#06b6d4'
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>

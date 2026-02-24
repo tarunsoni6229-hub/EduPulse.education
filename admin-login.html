@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top left, #1e293b 0%, #020617 100%);
+        }
+
+        .admin-login-card {
+            max-width: 400px;
+            width: 100%;
+            padding: 3rem;
+            border-top: 5px solid var(--primary);
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        #message {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glass-card admin-login-card">
+        <div style="text-align: center;">
+            <span class="badge">Administrative Access</span>
+            <div class="logo-area" style="justify-content: center; margin-bottom: 1.5rem;">
+                <div class="logo-icon"><i class="fas fa-user-shield"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <h1 style="margin-bottom: 0.5rem;">Control Center</h1>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Authorized Personnel Only</p>
+        </div>
+
+        <form id="adminLoginForm">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">Admin ID
+                    / Email</label>
+                <input type="email" id="email" required
+                    style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 10px; color: white; outline: none;">
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted);">Secure
+                    Key</label>
+                <input type="password" id="password" required
+                    style="width: 100%; padding: 12px; background: var(--glass); border: 1px solid var(--border); border-radius: 10px; color: white; outline: none;">
+            </div>
+            <button type="submit" class="btn-primary"
+                style="width: 100%; justify-content: center; padding: 14px;">Verify & Enter</button>
+        </form>
+
+        <div id="message"></div>
+
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: center;">
+            <p style="font-size: 0.75rem; color: var(--text-muted)">Need to setup initial admin? <br><a href="#"
+                    onclick="showGenerator()" style="color: var(--primary); text-decoration: none;">Generate Master
+                    Credentials</a></p>
+        </div>
+    </div>
+
+    <!-- Credential Generator Modal (Simplistic for demo) -->
+    <div id="generatorOverlay"
+        style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center;">
+        <div class="glass-card" style="padding: 2.5rem; max-width: 400px; width: 90%;">
+            <h3>Admin Generator</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Create a new administrator
+                account in the backend.</p>
+            <div style="margin-bottom: 1rem;">
+                <input type="text" id="genName" placeholder="Full Name"
+                    style="width: 100%; padding: 10px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="email" id="genEmail" placeholder="Admin Email"
+                    style="width: 100%; padding: 10px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <input type="password" id="genPass" placeholder="Access Password"
+                    style="width: 100%; padding: 10px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 8px;">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="generateAdmin()" class="btn-primary"
+                    style="flex: 1; justify-content: center;">Generate</button>
+                <button onclick="hideGenerator()" class="btn-primary"
+                    style="background: var(--glass); color: white;">Cancel</button>
+            </div>
+            <div id="genStatus" style="margin-top: 1rem; font-size: 0.8rem; text-align: center;"></div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('adminLoginForm');
+        const messageDiv = document.getElementById('message');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            messageDiv.innerHTML = "Verifying...";
+
+            try {
+                // In a real scenario, this would call the backend API
+                // For this demo (since we can't run node), we'll simulate the backend logic or assume it exists
+                const response = await fetch('http://localhost:5000/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('adminToken', data.token);
+                    localStorage.setItem('adminUser', JSON.stringify(data.admin));
+                    messageDiv.innerHTML = "<span style='color: #4ade80'>Access Granted! Redirecting...</span>";
+                    setTimeout(() => window.location.href = 'admin-dashboard.html', 1000);
+                } else {
+                    messageDiv.innerHTML = `<span style='color: #f87171'>${data.message}</span>`;
+                }
+            } catch (err) {
+                messageDiv.innerHTML = "<span style='color: #f87171'>Backend not running (Attempted to reach localhost:5000)</span>";
+            }
+        });
+
+        function showGenerator() { document.getElementById('generatorOverlay').style.display = 'flex'; }
+        function hideGenerator() { document.getElementById('generatorOverlay').style.display = 'none'; }
+
+        async function generateAdmin() {
+            const name = document.getElementById('genName').value;
+            const email = document.getElementById('genEmail').value;
+            const password = document.getElementById('genPass').value;
+            const status = document.getElementById('genStatus');
+
+            status.innerHTML = "Generating...";
+
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    status.innerHTML = `<span style='color: #4ade80'>Success! Admin created.</span>`;
+                    setTimeout(hideGenerator, 2000);
+                } else {
+                    status.innerHTML = `<span style='color: #f87171'>${data.message}</span>`;
+                }
+            } catch (err) {
+                status.innerHTML = "<span style='color: #f87171'>Error: Terminal backend not responding.</span>";
+            }
+        }
+    </script>
+</body>
+
+</html>

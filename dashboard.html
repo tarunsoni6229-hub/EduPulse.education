@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span>EduPulse</span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="study-material.html" class="nav-item">
+                    <i class="fas fa-book-open"></i>
+                    <span>Study Material</span>
+                </a>
+                <a href="attendance.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="placement.html" class="nav-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Placement</span>
+                </a>
+                <a href="campus-fee.html" class="nav-item">
+                    <i class="fas fa-wallet"></i>
+                    <span>Campus Fee</span>
+                </a>
+                <a href="daily-report.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Daily Reports</span>
+                </a>
+                <a href="leave-holiday.html" class="nav-item">
+                    <i class="fas fa-plane-departure"></i>
+                    <span>Leave/Holidays</span>
+                </a>
+                <a href="exam-info.html" class="nav-item">
+                    <i class="fas fa-edit"></i>
+                    <span>Exam Info</span>
+                </a>
+            </nav>
+
+            <div style="margin-top: auto;">
+                <a href="login.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 style="font-size: 1.8rem; margin-bottom: 5px;">Welcome back, Alex! 👋</h1>
+                    <p style="color: var(--text-muted)">Here's what's happening with your studies today.</p>
+                </div>
+
+                <div class="user-profile">
+                    <div class="notification-icon"
+                        style="margin-right: 15px; cursor: pointer; color: var(--text-muted)">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted)">ID: 202400512</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <i class="fas fa-percentage" style="color: var(--primary)"></i>
+                    <span class="stat-value">88.5%</span>
+                    <span class="stat-label">Avg. Attendance</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <i class="fas fa-star" style="color: var(--secondary)"></i>
+                    <span class="stat-value">A+</span>
+                    <span class="stat-label">Current Grade</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <i class="fas fa-tasks" style="color: var(--accent)"></i>
+                    <span class="stat-value">12 / 15</span>
+                    <span class="stat-label">Tasks Finished</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <i class="fas fa-wallet" style="color: #4ade80"></i>
+                    <span class="stat-value">$1,250</span>
+                    <span class="stat-label">Fee Pending</span>
+                </div>
+                <div class="glass-card stat-card">
+                    <i class="fas fa-clock" style="color: #fbbf24"></i>
+                    <span class="stat-value">4.2h</span>
+                    <span class="stat-label">Daily Study Time</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Content Layout -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                <!-- Main Activity Area -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.2rem;">Learning Progress</h3>
+                        <select
+                            style="background: var(--glass); border: 1px solid var(--border); color: white; padding: 5px 10px; border-radius: 8px;">
+                            <option>Monthly</option>
+                            <option>Weekly</option>
+                        </select>
+                    </div>
+                    <canvas id="progressChart" height="250"></canvas>
+                </div>
+
+                <!-- Side Panel (Upcoming Exams) -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Upcoming Exams</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div
+                            style="padding: 12px; background: var(--glass); border-radius: 12px; border-left: 4px solid var(--primary);">
+                            <p style="font-weight: 600; font-size: 0.95rem;">Advanced Mathematics</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;"><i
+                                    class="fas fa-calendar-alt"></i> Oct 24, 2024</p>
+                        </div>
+                        <div
+                            style="padding: 12px; background: var(--glass); border-radius: 12px; border-left: 4px solid var(--secondary);">
+                            <p style="font-weight: 600; font-size: 0.95rem;">Database Systems</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;"><i
+                                    class="fas fa-calendar-alt"></i> Oct 28, 2024</p>
+                        </div>
+                        <div
+                            style="padding: 12px; background: var(--glass); border-radius: 12px; border-left: 4px solid var(--accent);">
+                            <p style="font-weight: 600; font-size: 0.95rem;">Web Architecture</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;"><i
+                                    class="fas fa-calendar-alt"></i> Nov 02, 2024</p>
+                        </div>
+                    </div>
+                    <a href="exam-info.html" class="btn-primary"
+                        style="width: 100%; justify-content: center; margin-top: 1.5rem; font-size: 0.9rem;">View All
+                        Schedule</a>
+                </div>
+            </div>
+
+            <!-- Recent Reports & Campus Fee Summary -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                <!-- Daily Reports Table -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Daily Report Overview</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr
+                                    style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem;">
+                                    <th style="padding: 12px;">DATE</th>
+                                    <th style="padding: 12px;">TASKS</th>
+                                    <th style="padding: 12px;">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 0.9rem;">
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 15px;">Oct 18</td>
+                                    <td style="padding: 15px;">React Project</td>
+                                    <td style="padding: 15px;"><span style="color: #4ade80;">✔</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 15px;">Oct 17</td>
+                                    <td style="padding: 15px;">SQL Lab</td>
+                                    <td style="padding: 15px;"><span style="color: #4ade80;">✔</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Fee Quick Summary -->
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Campus Fee Summary</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div
+                            style="display: flex; justify-content: space-between; padding: 12px; background: var(--glass); border-radius: 10px;">
+                            <span style="color: var(--text-muted);">Tuition Fee</span>
+                            <span style="color: #4ade80; font-weight: 600;">Paid</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding: 12px; background: var(--glass); border-radius: 10px;">
+                            <span style="color: var(--text-muted);">Library Fee</span>
+                            <span style="color: #4ade80; font-weight: 600;">Paid</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding: 12px; background: var(--glass); border-radius: 10px;">
+                            <span style="color: var(--text-muted);">Hostel Fee</span>
+                            <span style="color: #f87171; font-weight: 600;">$1,250 Due</span>
+                        </div>
+                    </div>
+                    <a href="campus-fee.html" class="btn-primary"
+                        style="width: 100%; justify-content: center; margin-top: 1.2rem; background: var(--glass); border: 1px solid var(--border);">View
+                        Fee Portal</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Progress Chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Study Hours',
+                    data: [4, 6, 5, 8, 7, 4, 3],
+                    borderColor: '#6366f1',
+                    backgroundGradient: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: (context) => {
+                        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
+                        gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+                        return gradient;
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

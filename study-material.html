@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Material | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .material-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .subject-badge {
+            align-self: flex-start;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .resource-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--glass);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .resource-item:hover {
+            background: var(--glass-heavy);
+            transform: translateX(5px);
+        }
+
+        .resource-item i {
+            color: var(--primary);
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar (Same as dashboard) -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="study-material.html" class="nav-item active"><i class="fas fa-book-open"></i><span>Study
+                        Material</span></a>
+                <a href="attendance.html" class="nav-item"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="placement.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Placement</span></a>
+                <a href="campus-fee.html" class="nav-item"><i class="fas fa-wallet"></i><span>Campus Fee</span></a>
+                <a href="daily-report.html" class="nav-item"><i class="fas fa-file-alt"></i><span>Daily
+                        Reports</span></a>
+                <a href="leave-holiday.html" class="nav-item"><i
+                        class="fas fa-plane-departure"></i><span>Leave/Holidays</span></a>
+                <a href="exam-info.html" class="nav-item"><i class="fas fa-edit"></i><span>Exam Info</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 class="section-title">Study Material</h1>
+                    <p style="color: var(--text-muted)">Access your course recordings, lecture notes and assignments.
+                    </p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                    </div>
+                </div>
+            </header>
+
+            <div style="display: flex; gap: 15px; margin-bottom: 2rem;">
+                <input type="text" class="search-bar" placeholder="Search for subjects or topics...">
+                <button class="btn-primary"><i class="fas fa-search"></i> Search</button>
+            </div>
+
+            <div class="material-grid">
+                <!-- Subject Card 1 -->
+                <div class="glass-card material-card">
+                    <span class="subject-badge" style="background: rgba(99, 102, 241, 0.2); color: #6366f1;">Computer
+                        Science</span>
+                    <h3 style="font-size: 1.25rem;">Data Structures & Algorithms</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Master the fundamentals of memory
+                        management and algorithmic complexity.</p>
+                    <div class="resource-list">
+                        <div class="resource-item"><i class="fas fa-file-pdf"></i> Lecture 05 - Binary Trees.pdf</div>
+                        <div class="resource-item"><i class="fas fa-video"></i> Week 4 Recap Video</div>
+                        <div class="resource-item"><i class="fas fa-code"></i> Assignment 2 Solution Template</div>
+                    </div>
+                </div>
+
+                <!-- Subject Card 2 -->
+                <div class="glass-card material-card">
+                    <span class="subject-badge"
+                        style="background: rgba(236, 72, 153, 0.2); color: #ec4899;">Mathematics</span>
+                    <h3 style="font-size: 1.25rem;">Advanced Calculus</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Derivatives, integration, and multivariate
+                        functions exploration.</p>
+                    <div class="resource-list">
+                        <div class="resource-item"><i class="fas fa-file-pdf"></i> Integration Techniques.pdf</div>
+                        <div class="resource-item"><i class="fas fa-file-alt"></i> Practice Set - Fourier Series</div>
+                        <div class="resource-item"><i class="fas fa-video"></i> Multivariable Calculus Intro</div>
+                    </div>
+                </div>
+
+                <!-- Subject Card 3 -->
+                <div class="glass-card material-card">
+                    <span class="subject-badge"
+                        style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;">Engineering</span>
+                    <h3 style="font-size: 1.25rem;">Network Security</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Understanding encryption, firewalls, and
+                        cyber defense mechanisms.</p>
+                    <div class="resource-list">
+                        <div class="resource-item"><i class="fas fa-file-shield"></i> Cryptography Basics.pdf</div>
+                        <div class="resource-item"><i class="fas fa-terminal"></i> Lab Guide: Wireshark Basics</div>
+                        <div class="resource-item"><i class="fas fa-file-pdf"></i> Network Layer Attacks.pdf</div>
+                    </div>
+                </div>
+
+                <!-- Subject Card 4 -->
+                <div class="glass-card material-card">
+                    <span class="subject-badge"
+                        style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">Design</span>
+                    <h3 style="font-size: 1.25rem;">UI/UX Principles</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Learning user-centric design and behavioral
+                        psychological patterns.</p>
+                    <div class="resource-list">
+                        <div class="resource-item"><i class="fas fa-image"></i> Design System Guide.pdf</div>
+                        <div class="resource-item"><i class="fas fa-video"></i> Interview with Figma Designer</div>
+                        <div class="resource-item"><i class="fas fa-file-pdf"></i> Typography 101 Notes</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

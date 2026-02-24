@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Report | EduPulse SMS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .input-box,
+        .textarea-box {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .input-box:focus,
+        .textarea-box:focus {
+            border-color: var(--primary);
+            background: var(--glass-heavy);
+        }
+
+        .textarea-box {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .recent-reports-grid {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .report-mini-card {
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <span>EduPulse</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                <a href="study-material.html" class="nav-item"><i class="fas fa-book-open"></i><span>Study
+                        Material</span></a>
+                <a href="attendance.html" class="nav-item"><i
+                        class="fas fa-calendar-check"></i><span>Attendance</span></a>
+                <a href="placement.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Placement</span></a>
+                <a href="daily-report.html" class="nav-item active"><i class="fas fa-file-alt"></i><span>Daily
+                        Reports</span></a>
+                <a href="leave-holiday.html" class="nav-item"><i
+                        class="fas fa-plane-departure"></i><span>Leave/Holidays</span></a>
+                <a href="exam-info.html" class="nav-item"><i class="fas fa-edit"></i><span>Exam Info</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h1 class="section-title">Daily Study Report</h1>
+                    <p style="color: var(--text-muted)">Log your daily learning activities and track your consistency.
+                    </p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
+                    </div>
+                </div>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; align-items: start;">
+                <div class="glass-card" style="padding: 2.5rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Create New Report</h3>
+                    <form class="report-form">
+                        <div class="form-row">
+                            <div>
+                                <label>Report Date</label>
+                                <input type="date" class="input-box" value="2024-10-18">
+                            </div>
+                            <div>
+                                <label>Study Duration (Hours)</label>
+                                <input type="number" class="input-box" placeholder="e.g. 5">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Subjects Covered</label>
+                            <input type="text" class="input-box" placeholder="e.g. Physics, Math, DSA">
+                        </div>
+
+                        <div>
+                            <label>Tasks & Achievements</label>
+                            <textarea class="textarea-box"
+                                placeholder="What did you learn today? Any specific problems solved?"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <button type="submit" class="btn-primary">Submit Report</button>
+                            <button type="reset" class="btn-primary"
+                                style="background: var(--glass); color: white;">Clear</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Consistency Goal</h3>
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--primary);">12</div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Day Streak 🔥</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Weekly Target: 35 Hours</p>
+                        <div
+                            style="width: 100%; height: 10px; background: var(--glass); border-radius: 10px; position: relative;">
+                            <div
+                                style="width: 75%; height: 100%; background: var(--gradient-main); border-radius: 10px;">
+                            </div>
+                        </div>
+                        <p style="font-size: 0.8rem; text-align: right;">26.5 / 35 Hours</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1rem;">Recent Submissions</h3>
+            <div class="recent-reports-grid">
+                <div class="glass-card report-mini-card">
+                    <p style="font-size: 0.8rem; color: var(--primary); font-weight: 700;">OCT 17, 2024</p>
+                    <h4 style="margin: 8px 0;">React Components & Hooks</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Completed the library management UI and
+                        integrated Auth0.</p>
+                </div>
+                <div class="glass-card report-mini-card" style="border-left-color: var(--secondary);">
+                    <p style="font-size: 0.8rem; color: var(--secondary); font-weight: 700;">OCT 16, 2024</p>
+                    <h4 style="margin: 8px 0;">Algorithm Complexity</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Practiced Big O notation and solved 5
+                        LeetCode medium problems.</p>
+                </div>
+                <div class="glass-card report-mini-card" style="border-left-color: var(--accent);">
+                    <p style="font-size: 0.8rem; color: var(--accent); font-weight: 700;">OCT 15, 2024</p>
+                    <h4 style="margin: 8px 0;">Database Normalization</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Studied 1NF, 2NF, 3NF and BCNF with
+                        real-world examples.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
