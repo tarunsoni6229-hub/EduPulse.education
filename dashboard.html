@@ -68,7 +68,8 @@
         <main class="main-content">
             <header class="top-header">
                 <div>
-                    <h1 style="font-size: 1.8rem; margin-bottom: 5px;">Welcome back, Alex! 👋</h1>
+                    <h1 style="font-size: 1.8rem; margin-bottom: 5px;">Welcome back, <span
+                            id="welcomeName">Student</span>! 👋</h1>
                     <p style="color: var(--text-muted)">Here's what's happening with your studies today.</p>
                 </div>
 
@@ -79,8 +80,8 @@
                     </div>
                     <div class="avatar"></div>
                     <div class="user-info">
-                        <p style="font-weight: 600; font-size: 0.9rem;">Alex Thompson</p>
-                        <p style="font-size: 0.75rem; color: var(--text-muted)">ID: 202400512</p>
+                        <p style="font-weight: 600; font-size: 0.9rem;" id="profileName">Loading...</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted)" id="profileId">ID: 000000</p>
                     </div>
                 </div>
             </header>
@@ -218,6 +219,12 @@
     </div>
 
     <script>
+        // Load student data
+        const student = JSON.parse(localStorage.getItem('studentUser')) || { name: 'Student', studentId: '202400512' };
+        document.getElementById('welcomeName').innerText = student.name.split(' ')[0];
+        document.getElementById('profileName').innerText = student.name;
+        document.getElementById('profileId').innerText = 'ID: ' + student.studentId;
+
         // Progress Chart
         const ctx = document.getElementById('progressChart').getContext('2d');
         new Chart(ctx, {

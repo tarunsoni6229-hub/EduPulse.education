@@ -145,12 +145,12 @@
                 <p>Please enter your details to sign in</p>
             </div>
 
-            <form action="dashboard.html" onsubmit="return handleLogin(event)">
+            <form onsubmit="return handleLogin(event)">
                 <div class="form-group">
                     <label>Email Address</label>
                     <div class="input-group">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="name@school.com" required>
+                        <input type="email" id="loginEmail" placeholder="name@school.com" required>
                     </div>
                 </div>
 
@@ -158,18 +158,20 @@
                     <label>Password</label>
                     <div class="input-group">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" id="loginPass" placeholder="••••••••" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary login-btn">Sign In</button>
-                <a href="#" class="forgot-pass">Forgot password?</a>
+                <div id="loginMessage" style="margin-bottom: 15px; font-size: 0.9rem;"></div>
+
+                <button type="submit" id="loginBtn" class="btn-primary login-btn">Sign In</button>
+                <a href="forgot-password.html" class="forgot-pass">Forgot password?</a>
             </form>
 
             <div class="social-login">
                 <p style="color: var(--text-muted); font-size: 0.8rem;">Or continue with</p>
                 <div class="social-icons">
-                    <div class="social-icon"><i class="fab fa-google"></i></div>
+                    <div class="social-icon" id="googleLoginBtn"><i class="fab fa-google"></i></div>
                     <div class="social-icon"><i class="fab fa-microsoft"></i></div>
                     <div class="social-icon"><i class="fab fa-github"></i></div>
                 </div>
@@ -183,12 +185,93 @@
     </div>
 
     <script>
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
-            // In a real app, you'd validate here
-            window.location.href = 'dashboard.html';
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPass').value;
+            const messageDiv = document.getElementById('loginMessage');
+            const btn = document.getElementById('loginBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+            messageDiv.innerHTML = "";
+
+            try {
+                const response = await fetch('http://localhost:5000/api/student/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('studentToken', data.token);
+                    localStorage.setItem('studentUser', JSON.stringify(data.student));
+                    messageDiv.innerHTML = "<span style='color: #4ade80'>Login successful! Redirecting...</span>";
+                    setTimeout(() => window.location.href = 'dashboard.html', 1000);
+                } else {
+                    messageDiv.innerHTML = `<span style='color: #f87171'>${data.message}</span>`;
+                    btn.disabled = false;
+                    btn.innerHTML = 'Sign In';
+                }
+            } catch (err) {
+                console.error("Backend error:", err);
+                messageDiv.innerHTML = "<span style='color: #fbbf24'>Backend offline. Entering Demo Mode...</span>";
+
+                // Demo Mode Fallback
+                const demoUser = { name: 'Tarun Soni', email: email, studentId: '202400512' };
+                localStorage.setItem('studentUser', JSON.stringify(demoUser));
+                localStorage.setItem('studentToken', 'demo-token-' + Date.now());
+
+                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            }
             return false;
         }
+
+        // Google Login Simulation
+        document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+            const messageDiv = document.getElementById('loginMessage');
+            messageDiv.innerHTML = "<span style='color: white'>Opening Google Auth...</span>";
+
+            // Simulate Google Account Picker
+            const mockGoogleEmail = prompt("Simulating Google Login:\nPlease enter your Google Email:", "user@gmail.com");
+
+            if (!mockGoogleEmail) {
+                messageDiv.innerHTML = "";
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/student/google-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: mockGoogleEmail,
+                        name: mockGoogleEmail.split('@')[0],
+                        googleId: 'google_' + Date.now()
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('studentToken', data.token);
+                    localStorage.setItem('studentUser', JSON.stringify(data.student));
+                    messageDiv.innerHTML = "<span style='color: #4ade80'>Google Login successful! Redirecting...</span>";
+                    setTimeout(() => window.location.href = 'dashboard.html', 1000);
+                } else {
+                    messageDiv.innerHTML = `<span style='color: #f87171'>${data.message}</span>`;
+                }
+            } catch (err) {
+                console.warn("Backend offline, simulating Google Auth locally.");
+                const demoUser = { name: mockGoogleEmail.split('@')[0], email: mockGoogleEmail, studentId: 'G' + Date.now() };
+                localStorage.setItem('studentUser', JSON.stringify(demoUser));
+                localStorage.setItem('studentToken', 'google-demo-' + Date.now());
+                messageDiv.innerHTML = "<span style='color: #fbbf24'>Backend offline. Simulated Google Login successful!</span>";
+                setTimeout(() => window.location.href = 'dashboard.html', 1000);
+            }
+        });
     </script>
 </body>
 

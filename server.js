@@ -91,7 +91,103 @@ app.post('/api/admin/login', async (req, res) => {
     });
 });
 
-// 3. Get Dashboard Stats (Protected)
+// 3. Student Registration (Create Account)
+app.post('/api/student/register', async (req, res) => {
+    const { name, email, password, phone, studentId } = req.body;
+
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: "Required fields missing" });
+    }
+
+    const db = readDB();
+    const existingStudent = db.students.find(s => s.email === email);
+    if (existingStudent) {
+        return res.status(400).json({ message: "Account already exists with this email" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newStudent = {
+        id: Date.now(),
+        name,
+        email,
+        phone,
+        studentId,
+        password: hashedPassword,
+        createdAt: new Date().toISOString()
+    };
+
+    db.students.push(newStudent);
+    writeDB(db);
+
+    const token = jwt.sign({ id: newStudent.id, role: 'student' }, SECRET_KEY, { expiresIn: '2h' });
+
+    res.status(201).json({ 
+        message: "Account created successfully",
+        token: token,
+        student: { name: newStudent.name, email: newStudent.email, studentId: newStudent.studentId }
+    });
+});
+
+// 4. Student Login
+app.post('/api/student/login', async (req, res) => {
+    const { email, password } = req.body;
+    const db = readDB();
+
+    const student = db.students.find(s => s.email === email);
+    if (!student) {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, student.password);
+    if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ id: student.id, role: 'student' }, SECRET_KEY, { expiresIn: '2h' });
+
+    res.json({
+        message: "Login successful",
+        token: token,
+        student: { name: student.name, email: student.email, studentId: student.studentId }
+    });
+});
+
+// 5. Google Login (Simulated)
+app.post('/api/student/google-login', async (req, res) => {
+    const { email, name, googleId, picture } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+    }
+
+    const db = readDB();
+    let student = db.students.find(s => s.email === email);
+
+    if (!student) {
+        // Create new student if they don't exist (Google Signup)
+        student = {
+            id: Date.now(),
+            name: name || "Google User",
+            email: email,
+            googleId: googleId,
+            picture: picture,
+            studentId: 'G' + Math.floor(100000 + Math.random() * 900000), // Generate a student ID
+            createdAt: new Date().toISOString()
+        };
+        db.students.push(student);
+        writeDB(db);
+    }
+
+    const token = jwt.sign({ id: student.id, role: 'student' }, SECRET_KEY, { expiresIn: '2h' });
+
+    res.json({
+        message: "Google Login successful",
+        token: token,
+        student: { name: student.name, email: student.email, studentId: student.studentId }
+    });
+});
+
+// 6. Get Dashboard Stats (Protected)
 app.get('/api/admin/stats', (req, res) => {
     const db = readDB();
     res.json({
